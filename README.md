@@ -1,2 +1,4 @@
-# CS381-taylozac
-This repository will host all code for CS 381
+# CS381
+### All programs for CS381 will be stored in this repository
+
+## Assignments
