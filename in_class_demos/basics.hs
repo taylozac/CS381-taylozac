@@ -106,15 +106,22 @@ data Result = OK Int | Error
 
 -- | Safely divide two integers.
 safeDiv :: Int -> Int -> Result
-safeDiv = undefined
+safeDiv _ 0 = Error
+safeDiv x y = OK (x `div` y)
 
 -- | Get the integer from an OK result, or return 0 on an Error.
 fromResult :: Result -> Int
-fromResult = undefined
+--fromResult (OK x) = x
+--fromResult Error 
+fromResult r =  case r of
+  Error -> 0
+  OK x  -> x
+
 
 -- | Add two results.
 addResults :: Result -> Result -> Result
-addResults = undefined
+addResults (OK x) (OK y) = OK (x + y)
+addResults _      _      = Error
 
 
 -- The definition of Bool in the Haskell Prelude looks like this:
@@ -142,22 +149,31 @@ data List
   deriving (Eq,Show)
 
 -- | The empty list.
-empty = undefined
+empty :: List
+empty = Nil
 
 -- | The list: [2,3,4]
-exList = undefined
+exList :: List
+exList = Cons 2 (Cons 3 (Cons 4 (Nil)))
 
 -- | Compute the length of a list.
-listLength = undefined
+listLength :: List -> Int
+listLength Nil        = 0
+listLength (Cons _ t) = 1 + listLength t
 
 -- | Compute the sum of the integers in a list.
-listSum = undefined
+listSum :: List -> Int
+listSum Nil        = 0
+listSum (Cons h t) = h + listSum t
 
 
 -- Example evaluation:
 --
 -- listSum (Cons 3 (Cons 4 Nil))
-
+-- => 3 + listSum (Cons 4 Nil)
+-- => 3 + (4 + listSum (Nil))
+-- => 3 + (4 + 0)
+-- => 7
 
 
 -------------------
